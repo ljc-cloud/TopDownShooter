@@ -3983,17 +3983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 622c5d295b7f45669275b94d82cc4696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunTransformArray:
-  - {fileID: 79783739}
-  - {fileID: 1181796580}
-  - {fileID: 1760512550}
-  - {fileID: 1222528310}
-  - {fileID: 1813368004}
-  pistol: {fileID: 79783739}
-  revolver: {fileID: 1181796580}
-  autoRifle: {fileID: 1760512550}
-  shotgun: {fileID: 1222528310}
-  sniperRifle: {fileID: 1813368004}
+  weaponModelArray: []
   leftHandTarget: {fileID: 1506502264}
   leftHandIK: {fileID: 526743887}
   leftHandIKWeightIncreaseRate: 2.5
@@ -4230,7 +4220,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1813368004
 Transform:
   m_ObjectHideFlags: 0
