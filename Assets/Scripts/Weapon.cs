@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class Weapon
@@ -10,11 +11,15 @@ public class Weapon
     /// <summary>
     /// 武器当前弹容量
     /// </summary>
-    public int magazineAmmo;
+    public int bulletsInMagazine;
     /// <summary>
     /// 武器最大弹容量
     /// </summary>
-    public int maxMagazineAmmo;
+    public int magazineCapacity;
+    /// <summary>
+    /// 全部剩余子弹数
+    /// </summary>
+    public int totalReserveAmmo;
 
     public bool CanShoot()
     {
@@ -23,13 +28,33 @@ public class Weapon
 
     private bool HaveEnoughBullets()
     {
-        if (magazineAmmo > 0)
+        if (bulletsInMagazine > 0)
         {
-            magazineAmmo--;
+            bulletsInMagazine--;
             return true;
         }
 
         return false;
+    }
+
+    public bool CanReload()
+    {
+        if (bulletsInMagazine == magazineCapacity) return false;
+        if (totalReserveAmmo > 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void ReloadBullets()
+    {
+        if (totalReserveAmmo <= 0) return;
+        int needReloadBullets = magazineCapacity - bulletsInMagazine;
+        needReloadBullets = needReloadBullets <= totalReserveAmmo ? needReloadBullets : totalReserveAmmo;
+        bulletsInMagazine += needReloadBullets;
+        totalReserveAmmo -=  needReloadBullets; 
+        if (totalReserveAmmo < 0) totalReserveAmmo = 0;
     }
 }
 

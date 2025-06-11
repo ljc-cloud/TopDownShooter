@@ -15,6 +15,7 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] private Transform aimTarget;
     // 是否精确瞄准
     [SerializeField] private bool isAimPrecisely;
+    // 是否锁定目标
     [SerializeField] private bool isLockingToTarget;
     
     [Header("Camera Control")]

@@ -21,13 +21,14 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private int maxSlots = 2;
     
     public Transform GunPoint => gunPoint;
+    public Weapon CurrentWeapon => currentWeapon;
     private void Start()
     {
         _player = GetComponent<Player>();
         AssignInputEvents();
 
         currentWeapon = weaponSlots[0];
-        currentWeapon.magazineAmmo = currentWeapon.maxMagazineAmmo;
+        // currentWeapon.bulletsInMagazine = currentWeapon.magazineCapacity;
     }
 
     #region Input Events
@@ -37,10 +38,17 @@ public class PlayerWeaponController : MonoBehaviour
         PlayerControls controls = _player.Controls;
         
         controls.Character.Fire.performed += FirePerformed;
-        // TODO: Lambda To Function??
         controls.Character.EquipSlot1.performed += _ => EquipWeapon(0);
         controls.Character.EquipSlot2.performed += _ => EquipWeapon(1);
         controls.Character.DropCurrentWeapon.performed += DropWeaponPerformed;
+        controls.Character.Reload.performed += _ =>
+        {
+            if (currentWeapon.CanReload())
+            {
+                _player.WeaponVisual.PlayReloadAnimation();
+                // currentWeapon.ReloadBullets();
+            }
+        };
     }
 
     #endregion
@@ -50,6 +58,8 @@ public class PlayerWeaponController : MonoBehaviour
     private void EquipWeapon(int i)
     {
         currentWeapon = weaponSlots[i];
+        _player.WeaponVisual.SwitchOffWeaponModels();
+        _player.WeaponVisual.PlayEquipWeaponAnimation();
     }
     private void DropWeaponPerformed(InputAction.CallbackContext _)
     {

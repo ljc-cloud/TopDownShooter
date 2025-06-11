@@ -4,26 +4,31 @@ using UnityEngine;
 
 public class PlayerAnimationEvents : MonoBehaviour
 {
-    private PlayerWeaponVisual _playerWeaponVisual;
+    private PlayerWeaponVisual _weaponVisual;
+    private PlayerWeaponController _weaponController;
 
     private void Awake()
     {
-        _playerWeaponVisual = GetComponentInParent<PlayerWeaponVisual>();
+        _weaponVisual = GetComponentInParent<PlayerWeaponVisual>();
+        _weaponController = GetComponentInParent<PlayerWeaponController>();
     }
 
     public void ReloadOver()
     {
-        _playerWeaponVisual.ReturnRigWeight();
+        _weaponVisual.ReturnRigWeight();
+        _weaponController.CurrentWeapon.ReloadBullets();
     }
 
     public void ReturnRigWeight()
     {
-        _playerWeaponVisual.ReturnRigWeight();
-        _playerWeaponVisual.ReturnLeftHandIKWeight();
+        _weaponVisual.ReturnRigWeight();
+        _weaponVisual.ReturnLeftHandIKWeight();
     }
 
     public void WeaponGrabOver()
     {
-        _playerWeaponVisual.SetBusyGrabbingWeapon(false);
+        _weaponVisual.SetBusyGrabbingWeapon(false);
     }
+
+    public void SwitchOnWeaponModel() => _weaponVisual.SwitchOnCurrentWeaponModel();
 }
