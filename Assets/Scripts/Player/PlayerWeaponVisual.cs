@@ -8,16 +8,14 @@ public class PlayerWeaponVisual : MonoBehaviour
     private Animator _animator;
     private Player _player;
     
-    #region Gun Transform
 
     [SerializeField] private WeaponModel[] weaponModelArray;
     
-    [SerializeField] private Transform pistol;
-    [SerializeField] private Transform revolver;
-    [SerializeField] private Transform autoRifle;
-    [SerializeField] private Transform shotgun;
-    [SerializeField] private Transform sniperRifle;
-    #endregion
+    // [SerializeField] private Transform pistol;
+    // [SerializeField] private Transform revolver;
+    // [SerializeField] private Transform autoRifle;
+    // [SerializeField] private Transform shotgun;
+    // [SerializeField] private Transform sniperRifle;
 
     [Header("Left Hand IK")]
     [SerializeField] private Transform leftHandTarget;
@@ -140,6 +138,4 @@ public class PlayerWeaponVisual : MonoBehaviour
         }
         _animator.SetLayerWeight(layerIndex, 1);
     }
-
-    
 }
