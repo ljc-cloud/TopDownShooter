@@ -25,9 +25,9 @@ public class PlayerAnimationEvents : MonoBehaviour
         _weaponVisual.ReturnLeftHandIKWeight();
     }
 
-    public void WeaponGrabOver()
+    public void WeaponEquipOver()
     {
-        _weaponVisual.SetBusyGrabbingWeapon(false);
+        _weaponVisual.SetBusyEquippingWeapon(false);
     }
 
     public void SwitchOnWeaponModel() => _weaponVisual.SwitchOnCurrentWeaponModel();

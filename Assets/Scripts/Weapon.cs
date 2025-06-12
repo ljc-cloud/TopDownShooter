@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 [Serializable]
@@ -20,7 +21,14 @@ public class Weapon
     /// 全部剩余子弹数
     /// </summary>
     public int totalReserveAmmo;
-
+    /// <summary>
+    /// 装弹速度
+    /// </summary>
+    [Range(1, 5)] public float reloadSpeed = 1f;
+    /// <summary>
+    /// 装备速度
+    /// </summary>
+    [Range(1, 5)] public float equipSpeed = 1f;
     public bool CanShoot()
     {
         return HaveEnoughBullets();

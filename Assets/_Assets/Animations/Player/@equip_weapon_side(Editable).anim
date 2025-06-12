@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: '@grab_weapon_side(Editable)'
+  m_Name: '@equip_weapon_side(Editable)'
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -40824,7 +40824,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1.5
-    functionName: WeaponGrabOver
+    functionName: WeaponEquipOver
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

@@ -10,13 +10,8 @@ public class PlayerWeaponVisual : MonoBehaviour
     
 
     [SerializeField] private WeaponModel[] weaponModelArray;
+    [SerializeField] private BackUpWeaponModel[] backUpWeaponModelArray;
     
-    // [SerializeField] private Transform pistol;
-    // [SerializeField] private Transform revolver;
-    // [SerializeField] private Transform autoRifle;
-    // [SerializeField] private Transform shotgun;
-    // [SerializeField] private Transform sniperRifle;
-
     [Header("Left Hand IK")]
     [SerializeField] private Transform leftHandTarget;
     [SerializeField] private TwoBoneIKConstraint leftHandIK;
@@ -27,14 +22,15 @@ public class PlayerWeaponVisual : MonoBehaviour
     private Rig _rig;
     private bool _shouldIncreaseRigWeight;
 
-    private bool _isGrabbingWeapon;
+    private bool _isEquippingWeapon;
     private Transform _currentGun;
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _player = GetComponent<Player>();
         _rig = GetComponentInChildren<Rig>();
         weaponModelArray = GetComponentsInChildren<WeaponModel>(true);
+        backUpWeaponModelArray = GetComponentsInChildren<BackUpWeaponModel>(true);
         SwitchOnCurrentWeaponModel();
     }
 
@@ -88,10 +84,10 @@ public class PlayerWeaponVisual : MonoBehaviour
     
     #endregion
    
-    public void SetBusyGrabbingWeapon(bool busy)
+    public void SetBusyEquippingWeapon(bool busy)
     {
-        _isGrabbingWeapon = busy;
-        _animator.SetBool("BusyGrabbingWeapon", _isGrabbingWeapon);
+        _isEquippingWeapon = busy;
+        _animator.SetBool("BusyEquippingWeapon", _isEquippingWeapon);
     }
 
     public WeaponModel GetCurrentWeaponModel()
@@ -104,32 +100,62 @@ public class PlayerWeaponVisual : MonoBehaviour
 
     public void PlayEquipWeaponAnimation()
     {
-        WeaponGrabType grabType = GetCurrentWeaponModel().grabType;
+        WeaponModel currentWeaponModel = GetCurrentWeaponModel();
+        WeaponEquipType equipType = currentWeaponModel.equipType;
+        float equipSpeed = _player.WeaponController.CurrentWeapon.equipSpeed;
+        
         leftHandIK.weight = 0f;
         ReduceRigWeight(0f);
-        _animator.SetFloat("WeaponGrabType", (float)grabType);
-        _animator.SetTrigger("WeaponGrab");
-        SetBusyGrabbingWeapon(true);
+        _animator.SetFloat("EquipSpeed", equipSpeed);
+        _animator.SetFloat("WeaponEquipType", (float)equipType);
+        _animator.SetTrigger("EquipWeapon");
+        SetBusyEquippingWeapon(true);
+    }
+
+    public void SetCurrentWeaponAnimationParameter()
+    {
+        Weapon currentWeapon = _player.WeaponController.CurrentWeapon;
+        _animator.SetFloat("EquipSpeed", currentWeapon.equipSpeed);
+        _animator.SetFloat("ReloadSpeed", currentWeapon.reloadSpeed);
     }
 
     public void SwitchOnCurrentWeaponModel()
     {
-        // SwitchOffWeaponModels();
+        SwitchOffWeaponModels();
+        SwitchOffBackupWeaponModels();
+        
+        if (!_player.WeaponController.IsOnlyOneWeapon())
+            SwitchOnBackupWeaponModel();
+        
         WeaponModel currentWeaponModel = GetCurrentWeaponModel();
         currentWeaponModel.gameObject.SetActive(true);
         int currentWeaponAnimationLayer = (int)currentWeaponModel.holdType;
         SwitchAnimationLayer(currentWeaponAnimationLayer);
         AttachLeftHand();
     }
-
-    public void SwitchOffWeaponModels()
+    private void SwitchOffWeaponModels()
     {
         for (int i = 0; i < weaponModelArray.Length; i++)
         {
             weaponModelArray[i].gameObject.SetActive(false);
         }
+    }   
+    private void SwitchOffBackupWeaponModels()
+    {
+        foreach (var backupWeaponModel in backUpWeaponModelArray)
+        {
+            backupWeaponModel.gameObject.SetActive(false);
+        }
     }
-
+    public void SwitchOnBackupWeaponModel()
+    {
+        WeaponType weaponType = _player.WeaponController.GetBackupWeapon().weaponType;
+        foreach (var backUpWeaponModel in backUpWeaponModelArray)
+        {
+            if (weaponType == backUpWeaponModel.weaponType) 
+                backUpWeaponModel.gameObject.SetActive(true);
+        }
+    }
     private void SwitchAnimationLayer(int layerIndex)
     {
         for (int i = 1; i < _animator.layerCount; i++)

@@ -27,7 +27,8 @@ public class PlayerWeaponController : MonoBehaviour
         _player = GetComponent<Player>();
         AssignInputEvents();
 
-        currentWeapon = weaponSlots[0];
+        // currentWeapon = weaponSlots[0];
+        EquipWeapon(0);
         // currentWeapon.bulletsInMagazine = currentWeapon.magazineCapacity;
     }
 
@@ -41,14 +42,7 @@ public class PlayerWeaponController : MonoBehaviour
         controls.Character.EquipSlot1.performed += _ => EquipWeapon(0);
         controls.Character.EquipSlot2.performed += _ => EquipWeapon(1);
         controls.Character.DropCurrentWeapon.performed += DropWeaponPerformed;
-        controls.Character.Reload.performed += _ =>
-        {
-            if (currentWeapon.CanReload())
-            {
-                _player.WeaponVisual.PlayReloadAnimation();
-                // currentWeapon.ReloadBullets();
-            }
-        };
+        controls.Character.Reload.performed += _ =>  ReloadWeapon();
     }
 
     #endregion
@@ -57,21 +51,24 @@ public class PlayerWeaponController : MonoBehaviour
 
     private void EquipWeapon(int i)
     {
+        if (i > weaponSlots.Count) return;
         currentWeapon = weaponSlots[i];
-        _player.WeaponVisual.SwitchOffWeaponModels();
+        _player.WeaponVisual.SetCurrentWeaponAnimationParameter();
         _player.WeaponVisual.PlayEquipWeaponAnimation();
     }
     private void DropWeaponPerformed(InputAction.CallbackContext _)
     {
-        if (weaponSlots.Count < 2)
+        if (IsOnlyOneWeapon())
         {
             Debug.Log("can not drop weapon");
             return;
         }
 
         weaponSlots.Remove(currentWeapon);
-        currentWeapon = weaponSlots[^1];
+        EquipWeapon(weaponSlots.Count - 1);
     }
+
+    public bool IsOnlyOneWeapon() => weaponSlots.Count <= 1;
     public void PickUpWeapon(Weapon newWeapon)
     {
         if (weaponSlots.Count >= maxSlots)
@@ -79,12 +76,29 @@ public class PlayerWeaponController : MonoBehaviour
             Debug.Log("can not pick up weapon");
             return;
         }
-        
         weaponSlots.Add(newWeapon);
+        _player.WeaponVisual.SwitchOnBackupWeaponModel();
+    }
+
+    public Weapon GetBackupWeapon()
+    {
+        foreach (var weapon in weaponSlots)
+        {
+            if (weapon != currentWeapon) return weapon;
+        }
+
+        return null;
     }
 
     #endregion
-
+    private void ReloadWeapon()
+    {
+        if (currentWeapon.CanReload())
+        {
+            _player.WeaponVisual.PlayReloadAnimation();
+            // currentWeapon.ReloadBullets();
+        }
+    }
     private void FirePerformed(InputAction.CallbackContext context)
     {
         Shoot();

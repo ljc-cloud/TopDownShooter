@@ -3,12 +3,12 @@ using UnityEngine;
 /// <summary>
 /// 武器抓取类型
 /// </summary>
-public enum WeaponGrabType
+public enum WeaponEquipType
 {
     // 侧边抓取
-    SideGrab = 0,
+    Side = 0,
     // 背后抓取
-    BackGrab = 1
+    Back = 1
 }
 
 /// <summary>
@@ -29,7 +29,7 @@ public class WeaponModel : MonoBehaviour
     /// <summary>
     /// 武器抓取类型
     /// </summary>
-    public WeaponGrabType grabType;
+    public WeaponEquipType equipType;
     /// <summary>
     /// 武器左手持握类型
     /// </summary>

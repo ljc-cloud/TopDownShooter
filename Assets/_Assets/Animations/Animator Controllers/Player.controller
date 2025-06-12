@@ -49,7 +49,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: xVelocity
     m_Mirror: 0
-  m_BlendParameter: WeaponGrabType
+  m_BlendParameter: WeaponEquipType
   m_BlendParameterY: xVelocity
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -156,7 +156,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: xVelocity
     m_Mirror: 0
-  m_BlendParameter: WeaponGrabType
+  m_BlendParameter: WeaponEquipType
   m_BlendParameterY: xVelocity
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -239,7 +239,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: xVelocity
     m_Mirror: 0
-  m_BlendParameter: WeaponGrabType
+  m_BlendParameter: WeaponEquipType
   m_BlendParameterY: xVelocity
   m_MinThreshold: 0
   m_MaxThreshold: 1
@@ -515,7 +515,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Reload
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: BusyGrabbingWeapon
+    m_ConditionEvent: BusyEquippingWeapon
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 948986408538108502}
@@ -540,7 +540,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: WeaponGrab
+    m_ConditionEvent: EquipWeapon
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -350070017016945932}
@@ -563,7 +563,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Weapon Grab
+  m_Name: Weapon Equip
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -573,13 +573,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: -7186355369973624622}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: EquipSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -631,7 +631,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: WeaponGrab
+  - m_Name: EquipWeapon
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -655,13 +655,25 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: BusyGrabbingWeapon
+  - m_Name: BusyEquippingWeapon
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: WeaponGrabType
+  - m_Name: WeaponEquipType
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: ReloadSpeed
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: EquipSpeed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -752,7 +764,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Fire
     m_EventTreshold: 0
   - m_ConditionMode: 2
-    m_ConditionEvent: BusyGrabbingWeapon
+    m_ConditionEvent: BusyEquippingWeapon
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5953730439240055047}
@@ -810,13 +822,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: efc754bc4e3a32d419807a673b000e81, type: 2}
   m_Tag: 
-  m_SpeedParameter: 
+  m_SpeedParameter: ReloadSpeed
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
