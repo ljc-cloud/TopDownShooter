@@ -17,6 +17,7 @@ public class PlayerAnimationEvents : MonoBehaviour
     {
         _weaponVisual.ReturnRigWeight();
         _weaponController.CurrentWeapon.ReloadBullets();
+        _weaponController.SetWeaponReady(true);
     }
 
     public void ReturnRigWeight()
@@ -27,7 +28,8 @@ public class PlayerAnimationEvents : MonoBehaviour
 
     public void WeaponEquipOver()
     {
-        _weaponVisual.SetBusyEquippingWeapon(false);
+        // _weaponVisual.SetBusyEquippingWeapon(false);
+        _weaponController.SetWeaponReady(true);
     }
 
     public void SwitchOnWeaponModel() => _weaponVisual.SwitchOnCurrentWeaponModel();

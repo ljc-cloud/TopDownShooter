@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 2777949171108429038}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.005, y: 0, z: 0.014}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -147,6 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaad14f138a8c5e4aae51a64fbcb6b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletHitLayer:
+    serializedVersion: 2
+    m_Bits: 2240
   bulletHitVFX: {fileID: 6388823439668685352, guid: b50b4e360df5bf24dbb5ba05351887f9, type: 3}
 --- !u!96 &4186913868124590016
 TrailRenderer:
@@ -190,7 +193,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 0.3
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -208,7 +211,7 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.9816527
+        time: 1
         value: 0
         inSlope: 0
         outSlope: 0

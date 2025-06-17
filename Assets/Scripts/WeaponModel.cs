@@ -16,8 +16,11 @@ public enum WeaponEquipType
 /// </summary>
 public enum WeaponHoldType
 {
+    // 持握普通高度
     Common = 1,
+    // 持握低位
     Low,
+    // 持握高位
     High
 }
 public class WeaponModel : MonoBehaviour
@@ -27,7 +30,7 @@ public class WeaponModel : MonoBehaviour
     /// </summary>
     public WeaponType weaponType;
     /// <summary>
-    /// 武器抓取类型
+    /// 武器装备类型
     /// </summary>
     public WeaponEquipType equipType;
     /// <summary>

@@ -13,9 +13,9 @@ public class PlayerAim : MonoBehaviour
     
     [Header("Aim Control")]
     [SerializeField] private Transform aimTarget;
-    // 是否精确瞄准
+    // 是否精确瞄准 - true: 枪口精准指向鼠标位置, false: 枪口指向与鼠标位置x,z所在平面的位置
     [SerializeField] private bool isAimPrecisely;
-    // 是否锁定目标
+    // 是否锁定目标 - true: 鼠标进入Target的模型时，枪口指向锁定模型的中心位置, false: 枪口位置不锁定
     [SerializeField] private bool isLockingToTarget;
     
     [Header("Camera Control")]
@@ -44,11 +44,23 @@ public class PlayerAim : MonoBehaviour
         UpdateAimVisual();
         UpdateAimPosition();
         UpdateCameraTargetPosition();
-    } 
+    }
 
+    #region Aim Visual
+    /// <summary>
+    /// 更新枪口激光
+    /// </summary>
     private void UpdateAimVisual()
     {
-        Transform gunPoint = _player.WeaponController.GunPoint;
+        aimLaser.enabled = _player.WeaponController.GetWeaponReady();
+        if (!aimLaser.enabled) return;
+
+        WeaponModel currentWeaponModel = _player.WeaponVisual.GetCurrentWeaponModel();
+        
+        currentWeaponModel.transform.LookAt(aimTarget);
+        currentWeaponModel.gunPoint.LookAt(aimTarget);
+        
+        Transform gunPoint = currentWeaponModel.gunPoint;
         Vector3 laserDirection = _player.WeaponController.GetBulletDirection();
         float laserDistance = 5f;
         float laserTipLength = .5f;
@@ -64,7 +76,9 @@ public class PlayerAim : MonoBehaviour
         aimLaser.SetPosition(1, endPoint);
         aimLaser.SetPosition(2, endPoint + laserDirection * laserTipLength);
     }
-    
+    /// <summary>
+    /// 更新瞄准位置
+    /// </summary>
     private void UpdateAimPosition()
     {
         Transform target = GetTarget();
@@ -89,7 +103,9 @@ public class PlayerAim : MonoBehaviour
             aimTarget.position = new Vector3(aimTarget.position.x
                 , transform.position.y + 1, aimTarget.position.z);
     }
-    
+    #endregion
+
+    #region Mouse Hit Info
     public Transform GetTarget()
     {
         Transform target = null;
@@ -111,9 +127,9 @@ public class PlayerAim : MonoBehaviour
             _lastMouseHit = hitInfo;
             return hitInfo;
         }
-        
         return _lastMouseHit;
     }
+    #endregion
 
     #region Camera
     
@@ -139,7 +155,8 @@ public class PlayerAim : MonoBehaviour
     }
 
     #endregion
-    
+
+    #region Input Events
     private void AssignInputEvents()
     {
         _controls = _player.Controls;
@@ -154,4 +171,5 @@ public class PlayerAim : MonoBehaviour
     {
         _mouseInput = Vector2.zero;
     }
+    #endregion
 }

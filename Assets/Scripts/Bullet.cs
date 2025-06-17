@@ -1,9 +1,13 @@
+using System;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private LayerMask bulletHitLayer;
     [SerializeField] private GameObject bulletHitVFX;
     private Rigidbody _rb;
+
+    public event Action OnBulletHit;
 
     private void Awake()
     {
@@ -15,7 +19,12 @@ public class Bullet : MonoBehaviour
         CreateBulletVFX(other);
         
         _rb.velocity = Vector3.zero;
-        Destroy(gameObject);
+        // Destroy(gameObject);
+        int otherLayer = 1 << other.gameObject.layer;
+        if ((bulletHitLayer.value & otherLayer) > 0)
+        {
+            OnBulletHit?.Invoke();
+        }
     }
 
     private void CreateBulletVFX(Collision other)
