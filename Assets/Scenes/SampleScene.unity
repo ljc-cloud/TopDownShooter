@@ -917,6 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
+  hangType: 1
 --- !u!4 &405826934 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3505226547261043365, guid: 02097ff7d4f39e040b62297b2bc1a5d8, type: 3}
@@ -2338,6 +2339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 4
+  hangType: 1
 --- !u!1 &1053566322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,6 +2785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1195963569}
+  - component: {fileID: 1195963570}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -2807,6 +2810,19 @@ Transform:
   - {fileID: 200773035}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1195963570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195963568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd4973c2bf9419a8f7639b91ca57ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraDistanceChangeRate: 2
 --- !u!1 &1222528309
 GameObject:
   m_ObjectHideFlags: 0
@@ -4098,6 +4114,8 @@ MonoBehaviour:
     defaultFireRate: 0.8
     singleFireRate: 0
     bulletsPerShot: 3
+    gunDistance: 0
+    cameraDistance: 6
     fireType: 0
     singleFireAvailable: 0
     burstAvailable: 0
@@ -4126,6 +4144,8 @@ MonoBehaviour:
     defaultFireRate: 10
     singleFireRate: 3
     bulletsPerShot: 1
+    gunDistance: 5
+    cameraDistance: 6
     fireType: 2
     singleFireAvailable: 1
     burstAvailable: 1
@@ -4150,6 +4170,8 @@ MonoBehaviour:
     defaultFireRate: 1
     singleFireRate: 3
     bulletsPerShot: 5
+    gunDistance: 3
+    cameraDistance: 4
     fireType: 1
     singleFireAvailable: 0
     burstAvailable: 1
@@ -4164,7 +4186,33 @@ MonoBehaviour:
     maxSpread: 20
     spreadIncreaseRate: 0.1
     spreadCooldownTime: 1
-  maxSlots: 2
+  - weaponType: 0
+    bulletsInMagazine: 10
+    magazineCapacity: 10
+    totalReserveAmmo: 50
+    reloadSpeed: 1.5
+    equipSpeed: 1.5
+    fireRate: 1
+    defaultFireRate: 1
+    singleFireRate: 3
+    bulletsPerShot: 1
+    gunDistance: 3
+    cameraDistance: 4
+    fireType: 0
+    singleFireAvailable: 1
+    burstAvailable: 0
+    autoFireAvailable: 0
+    burstModeBulletPerShots: 5
+    burstPerBulletFireInterval: 0
+    burstFireDelay: 0.3
+    burstFireRate: 1
+    autoFireRate: 10
+    baseSpread: 20
+    currentSpread: 0
+    maxSpread: 5
+    spreadIncreaseRate: 0.1
+    spreadCooldownTime: 1
+  maxSlots: 3
 --- !u!114 &1663989628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4197,8 +4245,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimLaser: {fileID: 1971138632}
   aimTarget: {fileID: 547637766}
-  isAimPrecisely: 0
-  isLockingToTarget: 1
+  isAimPrecisely: 1
+  isLockingToTarget: 0
   aimLayerMask:
     serializedVersion: 2
     m_Bits: 2240
@@ -4227,7 +4275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1703939619
 Transform:
   m_ObjectHideFlags: 0
@@ -4236,15 +4284,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1703939618}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.62957543, y: -0.23821469, z: 0.28815338, w: 0.6810699}
-  m_LocalPosition: {x: 0.103, y: -0.077, z: -0.05}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0.0013579574, y: -0.84195215, z: 0.04896352, w: 0.5373244}
+  m_LocalPosition: {x: 0.026, y: -0.196, z: 0.012}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5801819829527672024}
   - {fileID: 1418366529655116939}
   m_Father: {fileID: 857706618347867148}
-  m_LocalEulerAnglesHint: {x: 84.185, y: 22.24, z: 66.002}
+  m_LocalEulerAnglesHint: {x: 4.646, y: -114.781, z: 3.158}
 --- !u!114 &1703939620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4258,6 +4306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
+  hangType: 0
 --- !u!1 &1717683937
 GameObject:
   m_ObjectHideFlags: 0
@@ -4316,6 +4365,8 @@ MonoBehaviour:
     defaultFireRate: 0.8
     singleFireRate: 0
     bulletsPerShot: 3
+    gunDistance: 0
+    cameraDistance: 6
     fireType: 0
     singleFireAvailable: 0
     burstAvailable: 0
@@ -4398,6 +4449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  hangType: 2
 --- !u!1 &1760512549
 GameObject:
   m_ObjectHideFlags: 0
@@ -4838,7 +4890,7 @@ LineRenderer:
       atime0: 0
       atime1: 60061
       atime2: 65535
-      atime3: 0
+      atime3: 65535
       atime4: 0
       atime5: 0
       atime6: 0
@@ -5077,6 +5129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  hangType: 2
 --- !u!1 &2079205252
 GameObject:
   m_ObjectHideFlags: 0

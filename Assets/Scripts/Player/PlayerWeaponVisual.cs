@@ -65,7 +65,6 @@ public class PlayerWeaponVisual : MonoBehaviour
         _animator.SetFloat("EquipSpeed", equipSpeed);
         _animator.SetFloat("WeaponEquipType", (float)equipType);
         _animator.SetTrigger("EquipWeapon");
-        // SetBusyEquippingWeapon(true);
     }
 
     #endregion
@@ -181,7 +180,7 @@ public class PlayerWeaponVisual : MonoBehaviour
     {
         foreach (var backupWeaponModel in backUpWeaponModelArray)
         {
-            backupWeaponModel.gameObject.SetActive(false);
+            backupWeaponModel.Activate(false);
         }
     }
     /// <summary>
@@ -189,12 +188,32 @@ public class PlayerWeaponVisual : MonoBehaviour
     /// </summary>
     public void SwitchOnBackupWeaponModel()
     {
-        WeaponType weaponType = _player.WeaponController.GetBackupWeapon().weaponType;
+        SwitchOffBackupWeaponModels();
+
+        BackUpWeaponModel lowBackHangWeapon = null;
+        BackUpWeaponModel backHangWeapon = null;
+        BackUpWeaponModel sideHangWeapon = null;
+        
+        // WeaponType weaponType = _player.WeaponController.GetBackupWeapon().weaponType;
         foreach (var backUpWeaponModel in backUpWeaponModelArray)
         {
-            if (weaponType == backUpWeaponModel.weaponType) 
-                backUpWeaponModel.gameObject.SetActive(true);
+            if (_player.WeaponController.CurrentWeapon.weaponType == backUpWeaponModel.weaponType) 
+                continue;
+            if (_player.WeaponController.HasWeaponTypeInInventory(backUpWeaponModel.weaponType))
+            {
+                if (backUpWeaponModel.HangType == WeaponHangType.LowBack)
+                    lowBackHangWeapon = backUpWeaponModel;
+
+                if (backUpWeaponModel.HangType == WeaponHangType.Back)
+                    backHangWeapon = backUpWeaponModel;
+
+                if (backUpWeaponModel.HangType == WeaponHangType.Side)
+                    sideHangWeapon = backUpWeaponModel;
+            }
         }
+        lowBackHangWeapon?.Activate(true);
+        backHangWeapon?.Activate(true);
+        sideHangWeapon?.Activate(true);
     }
 
     #endregion

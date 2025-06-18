@@ -9,7 +9,6 @@ public class Weapon
     /// 武器类型
     /// </summary>
     public WeaponType weaponType;
-    
     /// <summary>
     /// 武器当前弹容量
     /// </summary>
@@ -46,6 +45,15 @@ public class Weapon
     /// 每次开火发射子弹数
     /// </summary>
     public int bulletsPerShot;
+
+    /// <summary>
+    /// 射击距离
+    /// </summary>
+    [Range(2, 15)] public float gunDistance = 5f;
+    /// <summary>
+    /// 摄像机距离
+    /// </summary>
+    [Range(4, 12)] public float cameraDistance = 6f;
     
     /// <summary>
     /// 射击类型

@@ -60,6 +60,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Equip Slot - 3",
+                    "type": "Button",
+                    "id": "6676be8e-c312-4051-9448-f4e4ebc0acd0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Drop Current Weapon",
                     "type": "Button",
                     "id": "ea9ec1bb-8a55-4604-b806-f9c2eac0d548",
@@ -186,6 +195,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Equip Slot - 2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5fff9034-2a62-49c4-bdca-6b38345045f8",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Equip Slot - 3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
