@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Bullet : MonoBehaviour
     private float _flyDistance;
     private bool _bulletDisabled;
 
-    public event Action<GameObject> OnReleaseBullet;
+    // public event Action<GameObject> OnReleaseBullet;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public class Bullet : MonoBehaviour
         if (_trailRenderer.time <= 0)
         {
             if (gameObject.activeSelf)
-                OnReleaseBullet?.Invoke(gameObject);
+                ObjectPoolManager.Instance.GetPool(ObjectPoolManager.BULLET)?.Release(gameObject);
         }
     }
 
@@ -79,18 +80,30 @@ public class Bullet : MonoBehaviour
         if ((bulletHitLayer.value & otherLayer) > 0)
         {
             if (gameObject.activeSelf)
-                OnReleaseBullet?.Invoke(gameObject);
+                ObjectPoolManager.Instance.GetPool(ObjectPoolManager.BULLET)?.Release(gameObject);
         }
     }
 
     private void CreateBulletVFX(Collision other)
     {
+        ObjectPool<GameObject> impactPool;
+        if (!ObjectPoolManager.Instance.HasPool(ObjectPoolManager.VFX))
+        {
+            impactPool = new ObjectPool<GameObject>(() => Instantiate(bulletHitVFX, ObjectPoolManager.PoolParent),
+                actionOnGet: impact => impact.SetActive(true),
+                actionOnRelease: impact => impact.SetActive(false),
+                defaultCapacity: 10);
+            ObjectPoolManager.Instance.RegisterPool(ObjectPoolManager.VFX, impactPool);
+        }
+        else
+        {
+            impactPool = ObjectPoolManager.Instance.GetPool(ObjectPoolManager.VFX);
+        }
         if (other.contacts.Length > 0)
         {
-            ContactPoint contact = other.contacts[0];
-            GameObject bulletImpact = Instantiate(bulletHitVFX, contact.point
-                , Quaternion.LookRotation(contact.normal));
-            Destroy(bulletImpact, 1f);
+            GameObject impactGameObject = impactPool.Get();
+            impactGameObject.transform.position = other.contacts[0].point;
+            impactGameObject.transform.rotation = Quaternion.LookRotation(other.contacts[0].normal);
         }
     }
 }

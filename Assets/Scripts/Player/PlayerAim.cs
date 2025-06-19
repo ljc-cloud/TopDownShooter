@@ -62,7 +62,7 @@ public class PlayerAim : MonoBehaviour
         
         Transform gunPoint = currentWeaponModel.gunPoint;
         Vector3 laserDirection = _player.WeaponController.GetBulletDirection();
-        float laserDistance = _player.WeaponController.CurrentWeapon.gunDistance;
+        float laserDistance = _player.WeaponController.CurrentWeapon.ShootDistance;
         float laserTipLength = .5f;
         
         aimLaser.SetPosition(0, gunPoint.position);

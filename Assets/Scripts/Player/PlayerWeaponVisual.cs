@@ -58,7 +58,7 @@ public class PlayerWeaponVisual : MonoBehaviour
     {
         WeaponModel currentWeaponModel = GetCurrentWeaponModel();
         WeaponEquipType equipType = currentWeaponModel.equipType;
-        float equipSpeed = _player.WeaponController.CurrentWeapon.equipSpeed;
+        float equipSpeed = _player.WeaponController.CurrentWeapon.EquipSpeed;
         
         leftHandIK.weight = 0f;
         ReduceRigWeight(0f);
@@ -143,8 +143,8 @@ public class PlayerWeaponVisual : MonoBehaviour
     public void ResetCurrentWeaponAnimationParameter()
     {
         Weapon currentWeapon = _player.WeaponController.CurrentWeapon;
-        _animator.SetFloat("EquipSpeed", currentWeapon.equipSpeed);
-        _animator.SetFloat("ReloadSpeed", currentWeapon.reloadSpeed);
+        _animator.SetFloat("EquipSpeed", currentWeapon.EquipSpeed);
+        _animator.SetFloat("ReloadSpeed", currentWeapon.ReloadSpeed);
     }
     /// <summary>
     /// active当前武器模型

@@ -27,52 +27,43 @@ public class PlayerWeaponController : MonoBehaviour
     [Header("Inventory")] [SerializeField] private List<Weapon> weaponSlots;
     [SerializeField] private int maxSlots = 2;
 
-    private ObjectPool<GameObject> _bulletPool;
+    // private ObjectPool<GameObject> _bulletPool;
 
     // public Transform GunPoint => gunPoint;
     public Weapon CurrentWeapon => currentWeapon;
 
+
     private void Start()
     {
         _player = GetComponent<Player>();
-        _bulletPool = new ObjectPool<GameObject>(() =>
+        
+        ObjectPool<GameObject> bulletPool = new ObjectPool<GameObject>(() =>
             {
                 Transform gunPoint = GetGunPoint();
                 GameObject bulletGameObject = Instantiate(bulletPrefab, gunPoint.position,
-                    Quaternion.LookRotation(gunPoint.forward));
+                    Quaternion.LookRotation(gunPoint.forward), ObjectPoolManager.PoolParent);
                 bulletGameObject.SetActive(false);
                 return bulletGameObject;
             },
             actionOnGet: bulletGameObject =>
             {
                 bulletGameObject.SetActive(true);
-                bulletGameObject.GetComponent<Bullet>().OnReleaseBullet += ReleaseBullet;
             },
             actionOnRelease: bulletGameObject =>
             {
                 bulletGameObject.SetActive(false);
-                bulletGameObject.GetComponent<Bullet>().OnReleaseBullet -= ReleaseBullet;
             }, defaultCapacity: 10);
+        
+        ObjectPoolManager.Instance.RegisterPool(ObjectPoolManager.BULLET, bulletPool);
 
         AssignInputEvents();
         EquipWeapon(0);
-    }
-
-    private void ReleaseBullet(GameObject bulletGameObject)
-    {
-        _bulletPool.Release(bulletGameObject);
     }
 
     private void Update()
     {
         if (_isShooting)
             Shoot();
-
-        // 切换开火方式
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            currentWeapon.SwitchFireMode();
-        }
     }
 
     #region Input Events
@@ -88,6 +79,7 @@ public class PlayerWeaponController : MonoBehaviour
         controls.Character.EquipSlot3.performed += _ => EquipWeapon(2);
         controls.Character.DropCurrentWeapon.performed += DropWeapon;
         controls.Character.Reload.performed += _ => ReloadWeapon();
+        controls.Character.ChangeFireMode.performed += _ => currentWeapon.SwitchFireMode();
     }
 
     #endregion
@@ -103,7 +95,7 @@ public class PlayerWeaponController : MonoBehaviour
         _player.WeaponVisual.ResetCurrentWeaponAnimationParameter();
         _player.WeaponVisual.PlayEquipWeaponAnimation();
         
-        CameraManager.Instance.ChangeCameraDistance(currentWeapon.cameraDistance);
+        CameraManager.Instance.ChangeCameraDistance(currentWeapon.CameraDistance);
     }
 
     private void DropWeapon(InputAction.CallbackContext _)
@@ -149,7 +141,16 @@ public class PlayerWeaponController : MonoBehaviour
             if (weapon.weaponType == weaponType) return true;
         }
         return false;
-    } 
+    }
+
+    public Weapon GetWeaponByType(WeaponType weaponType)
+    {
+        foreach (var weapon in weaponSlots)
+        {
+            if (weapon.weaponType == weaponType) return weapon;
+        }
+        return null;
+    }
 
     #endregion
 
@@ -187,15 +188,15 @@ public class PlayerWeaponController : MonoBehaviour
     private IEnumerator BurstFire()
     {
         SetWeaponReady(false);
-        for (int i = 1; i <= currentWeapon.burstModeBulletPerShots; i++)
+        for (int i = 1; i <= currentWeapon.BurstFireBulletPerShots; i++)
         {
             SingleFire();
-            yield return new WaitForSeconds(currentWeapon.burstPerBulletFireInterval);
+            yield return new WaitForSeconds(currentWeapon.BurstPerBulletFireInterval);
 
             // if (i >= currentWeapon.bulletsPerShot) SetWeaponReady(true);
         }
 
-        yield return new WaitForSeconds(currentWeapon.burstFireDelay);
+        yield return new WaitForSeconds(currentWeapon.BurstFireDelay);
 
         SetWeaponReady(true);
     }
@@ -207,13 +208,13 @@ public class PlayerWeaponController : MonoBehaviour
     {
         currentWeapon.bulletsInMagazine--;
 
-        GameObject bulletGameObject = _bulletPool.Get();
+        GameObject bulletGameObject = ObjectPoolManager.Instance.GetPool(ObjectPoolManager.BULLET).Get();
         Transform gunPoint = GetGunPoint();
         bulletGameObject.transform.position = gunPoint.position;
         bulletGameObject.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
         
         Bullet bullet =  bulletGameObject.GetComponent<Bullet>();
-        bullet.SetupBullet(currentWeapon.gunDistance);
+        bullet.SetupBullet(currentWeapon.ShootDistance);
 
         Rigidbody rb = bulletGameObject.GetComponent<Rigidbody>();
         rb.mass = REFERENCE_BULLET_SPEED / bulletSpeed;

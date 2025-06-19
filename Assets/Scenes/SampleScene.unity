@@ -122,6 +122,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &50915464
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 50915465}
+  - component: {fileID: 50915466}
+  m_Layer: 0
+  m_Name: ---Pool---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &50915465
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50915464}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50915466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50915464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46ac4abf4f3d4c94b948303e6b8160f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &79783738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,7 +1212,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 580627748}
-  - component: {fileID: 580627749}
   m_Layer: 8
   m_Name: LeftHand_TargetTransform
   m_TagString: Untagged
@@ -1191,18 +1234,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1222528310}
   m_LocalEulerAnglesHint: {x: -171.029, y: 84.172, z: -106.537994}
---- !u!114 &580627749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 580627747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622791894e2e4f589342f9f24cd8172d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &636600787
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,7 +1243,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 636600788}
-  - component: {fileID: 636600789}
   m_Layer: 8
   m_Name: LeftHand_TargetTransform
   m_TagString: Untagged
@@ -1235,18 +1265,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 79783739}
   m_LocalEulerAnglesHint: {x: -161.48, y: 97.116, z: -72.013}
---- !u!114 &636600789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636600787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622791894e2e4f589342f9f24cd8172d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &637553353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1856,7 +1874,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 758696615}
-  - component: {fileID: 758696616}
   m_Layer: 8
   m_Name: LeftHand_TargetTransform
   m_TagString: Untagged
@@ -1879,18 +1896,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1760512550}
   m_LocalEulerAnglesHint: {x: -165.803, y: 94.992, z: -91.99701}
---- !u!114 &758696616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 758696614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622791894e2e4f589342f9f24cd8172d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &852976720
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,7 +2261,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1011685738}
-  - component: {fileID: 1011685739}
   m_Layer: 8
   m_Name: LeftHand_TargetTransform
   m_TagString: Untagged
@@ -2279,18 +2283,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1813368004}
   m_LocalEulerAnglesHint: {x: -170.58, y: 103.519, z: -153.564}
---- !u!114 &1011685739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1011685737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622791894e2e4f589342f9f24cd8172d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1046418017
 GameObject:
   m_ObjectHideFlags: 0
@@ -2822,6 +2814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd4973c2bf9419a8f7639b91ca57ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canChangeCameraDistance: 0
   cameraDistanceChangeRate: 2
 --- !u!1 &1222528309
 GameObject:
@@ -4104,114 +4097,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon:
-    weaponType: 1
-    bulletsInMagazine: 0
-    magazineCapacity: 0
-    totalReserveAmmo: 0
-    reloadSpeed: 1
-    equipSpeed: 1
-    fireRate: 0
-    defaultFireRate: 0.8
-    singleFireRate: 0
-    bulletsPerShot: 3
-    gunDistance: 0
-    cameraDistance: 6
+    weaponType: 0
     fireType: 0
-    singleFireAvailable: 0
-    burstAvailable: 0
-    autoFireAvailable: 0
-    burstModeBulletPerShots: 0
-    burstPerBulletFireInterval: 0.1
-    burstFireDelay: 0.1
-    burstFireRate: 0
-    autoFireRate: 0
-    baseSpread: 0
-    currentSpread: 0
-    maxSpread: 4
-    spreadIncreaseRate: 0
-    spreadCooldownTime: 0
+    bulletsInMagazine: 0
+    totalReserveAmmo: 0
   bulletPrefab: {fileID: 2777949171108429038, guid: f32c781b6d0ad3546b273da4889e6395, type: 3}
   bulletSpeed: 20
   weaponHolderTransform: {fileID: 1053566323}
   weaponSlots:
-  - weaponType: 2
-    bulletsInMagazine: 50
-    magazineCapacity: 50
-    totalReserveAmmo: 160
-    reloadSpeed: 1.5
-    equipSpeed: 1.5
-    fireRate: 10
-    defaultFireRate: 10
-    singleFireRate: 3
-    bulletsPerShot: 1
-    gunDistance: 5
-    cameraDistance: 6
-    fireType: 2
-    singleFireAvailable: 1
-    burstAvailable: 1
-    autoFireAvailable: 1
-    burstModeBulletPerShots: 3
-    burstPerBulletFireInterval: 0.1
-    burstFireDelay: 0.3
-    burstFireRate: 12
-    autoFireRate: 10
-    baseSpread: 0
-    currentSpread: 0
-    maxSpread: 5
-    spreadIncreaseRate: 0.1
-    spreadCooldownTime: 1
-  - weaponType: 3
-    bulletsInMagazine: 10
-    magazineCapacity: 10
-    totalReserveAmmo: 50
-    reloadSpeed: 1.5
-    equipSpeed: 1.5
-    fireRate: 1
-    defaultFireRate: 1
-    singleFireRate: 3
-    bulletsPerShot: 5
-    gunDistance: 3
-    cameraDistance: 4
-    fireType: 1
-    singleFireAvailable: 0
-    burstAvailable: 1
-    autoFireAvailable: 0
-    burstModeBulletPerShots: 5
-    burstPerBulletFireInterval: 0
-    burstFireDelay: 0.3
-    burstFireRate: 1
-    autoFireRate: 10
-    baseSpread: 20
-    currentSpread: 20
-    maxSpread: 20
-    spreadIncreaseRate: 0.1
-    spreadCooldownTime: 1
   - weaponType: 0
-    bulletsInMagazine: 10
-    magazineCapacity: 10
-    totalReserveAmmo: 50
-    reloadSpeed: 1.5
-    equipSpeed: 1.5
-    fireRate: 1
-    defaultFireRate: 1
-    singleFireRate: 3
-    bulletsPerShot: 1
-    gunDistance: 3
-    cameraDistance: 4
     fireType: 0
-    singleFireAvailable: 1
-    burstAvailable: 0
-    autoFireAvailable: 0
-    burstModeBulletPerShots: 5
-    burstPerBulletFireInterval: 0
-    burstFireDelay: 0.3
-    burstFireRate: 1
-    autoFireRate: 10
-    baseSpread: 20
-    currentSpread: 0
-    maxSpread: 5
-    spreadIncreaseRate: 0.1
-    spreadCooldownTime: 1
+    bulletsInMagazine: 0
+    totalReserveAmmo: 160
+  - weaponType: 0
+    fireType: 0
+    bulletsInMagazine: 0
+    totalReserveAmmo: 50
+  - weaponType: 0
+    fireType: 0
+    bulletsInMagazine: 0
+    totalReserveAmmo: 50
   maxSlots: 3
 --- !u!114 &1663989628
 MonoBehaviour:
@@ -4355,32 +4260,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon:
-    weaponType: 2
-    bulletsInMagazine: 30
-    magazineCapacity: 30
-    totalReserveAmmo: 90
-    reloadSpeed: 2
-    equipSpeed: 2
-    fireRate: 0
-    defaultFireRate: 0.8
-    singleFireRate: 0
-    bulletsPerShot: 3
-    gunDistance: 0
-    cameraDistance: 6
+    weaponType: 0
     fireType: 0
-    singleFireAvailable: 0
-    burstAvailable: 0
-    autoFireAvailable: 0
-    burstModeBulletPerShots: 0
-    burstPerBulletFireInterval: 0.1
-    burstFireDelay: 0.1
-    burstFireRate: 0
-    autoFireRate: 0
-    baseSpread: 0
-    currentSpread: 0
-    maxSpread: 0
-    spreadIncreaseRate: 0
-    spreadCooldownTime: 0
+    bulletsInMagazine: 0
+    totalReserveAmmo: 90
 --- !u!65 &1717683940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4663,7 +4546,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1898121424}
-  - component: {fileID: 1898121425}
   m_Layer: 8
   m_Name: LeftHand_TargetTransform
   m_TagString: Untagged
@@ -4686,18 +4568,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1181796580}
   m_LocalEulerAnglesHint: {x: -148.227, y: 92.407, z: -70.05499}
---- !u!114 &1898121425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898121423}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 622791894e2e4f589342f9f24cd8172d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1959970283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9078,21 +8948,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3703647820586754255}
   m_Mesh: {fileID: -1154756649555877757, guid: f090ac86dc671324184242c474228348, type: 3}
---- !u!4 &6335140454484960350
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6674651312438132452}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6370425364130987570
 GameObject:
   m_ObjectHideFlags: 0
@@ -9284,22 +9139,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &6674651312438132452
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6335140454484960350}
-  m_Layer: 0
-  m_Name: weapon (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &6743969921474574996
 GameObject:
   m_ObjectHideFlags: 0
@@ -10914,4 +10753,4 @@ SceneRoots:
   - {fileID: 547637766}
   - {fileID: 1717683938}
   - {fileID: 850360085309146844}
-  - {fileID: 6335140454484960350}
+  - {fileID: 50915465}

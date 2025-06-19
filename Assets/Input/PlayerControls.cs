@@ -107,6 +107,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Change Fire Mode"",
+                    ""type"": ""Button"",
+                    ""id"": ""59134e84-96e7-4d5b-8495-1d11d9ad2120"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -252,6 +261,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""412a928b-b312-4fa2-b4ad-ba08190d1a2a"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change Fire Mode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -269,6 +289,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Character_EquipSlot3 = m_Character.FindAction("Equip Slot - 3", throwIfNotFound: true);
         m_Character_DropCurrentWeapon = m_Character.FindAction("Drop Current Weapon", throwIfNotFound: true);
         m_Character_Reload = m_Character.FindAction("Reload", throwIfNotFound: true);
+        m_Character_ChangeFireMode = m_Character.FindAction("Change Fire Mode", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -344,6 +365,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_EquipSlot3;
     private readonly InputAction m_Character_DropCurrentWeapon;
     private readonly InputAction m_Character_Reload;
+    private readonly InputAction m_Character_ChangeFireMode;
     public struct CharacterActions
     {
         private @PlayerControls m_Wrapper;
@@ -357,6 +379,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @EquipSlot3 => m_Wrapper.m_Character_EquipSlot3;
         public InputAction @DropCurrentWeapon => m_Wrapper.m_Character_DropCurrentWeapon;
         public InputAction @Reload => m_Wrapper.m_Character_Reload;
+        public InputAction @ChangeFireMode => m_Wrapper.m_Character_ChangeFireMode;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -393,6 +416,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @ChangeFireMode.started += instance.OnChangeFireMode;
+            @ChangeFireMode.performed += instance.OnChangeFireMode;
+            @ChangeFireMode.canceled += instance.OnChangeFireMode;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -424,6 +450,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @ChangeFireMode.started -= instance.OnChangeFireMode;
+            @ChangeFireMode.performed -= instance.OnChangeFireMode;
+            @ChangeFireMode.canceled -= instance.OnChangeFireMode;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -452,5 +481,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnEquipSlot3(InputAction.CallbackContext context);
         void OnDropCurrentWeapon(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnChangeFireMode(InputAction.CallbackContext context);
     }
 }

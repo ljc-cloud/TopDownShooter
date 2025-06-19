@@ -9,6 +9,7 @@ public class CameraManager : MonoBehaviour
     private CinemachineVirtualCamera _virtualCamera;
     private CinemachineFramingTransposer _transposer;
 
+    [SerializeField] private bool canChangeCameraDistance;
     [SerializeField] private float cameraDistanceChangeRate;
     private float _targetCameraDistance;
 
@@ -29,11 +30,12 @@ public class CameraManager : MonoBehaviour
 
     private void Update()
     {
-        // UpdateCameraDistance();
+        UpdateCameraDistance();
     }
 
     private void UpdateCameraDistance()
     {
+        if (!canChangeCameraDistance) return;
         float currentDistance = _transposer.m_CameraDistance;
         if (Mathf.Abs(currentDistance - _targetCameraDistance) > 0.01f)
         {
