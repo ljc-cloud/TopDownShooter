@@ -4,16 +4,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WeaponData", menuName = "So/WeaponData")]
 public class WeaponDataSo : ScriptableObject
 {
-    [Header("Base Weapon Data")]
-    // public string weaponName;
+    [Header("Specify")]
     public WeaponType weaponType;
     [Tooltip("最大弹容量")] public int magazineCapacity;
-
-    [Header("Speed")] [Tooltip("装弹速度"), Range(1, 5)]
-    public float reloadSpeed = 1f;
-
+    [Tooltip("弹匣中剩余子弹数")] public int bulletsInMagazine;
+    [Tooltip("total 子弹数")] public int totalReserveAmmo;
+    [Tooltip("装弹速度"), Range(1, 5)] public float reloadSpeed = 1f;
     [Tooltip("装备速度"), Range(1, 5)] public float equipSpeed = 1f;
-
+    [Tooltip("射击距离"), Range(2, 15)] public float shootDistance = 5f;
+    [Tooltip("摄像机距离"), Range(4, 12)] public float cameraDistance;
 
     // [Header("Bullets and magazine")]
 
@@ -38,9 +37,4 @@ public class WeaponDataSo : ScriptableObject
     [Tooltip("最大散布")] public float maxSpread;
     [Tooltip("散布速率")] public float spreadIncreaseRate = .15f;
     [Tooltip("散布重置时间")] public float spreadCooldownTime;
-
-    [Header("Distance")] [Tooltip("射击距离"), Range(2, 15)]
-    public float shootDistance = 5f;
-
-    [Tooltip("摄像机距离"), Range(4, 12)] public float cameraDistance;
 }

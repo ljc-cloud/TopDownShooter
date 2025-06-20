@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
         if (_trailRenderer.time <= 0)
         {
             if (gameObject.activeSelf)
-                ObjectPoolManager.Instance.GetPool(ObjectPoolManager.BULLET)?.Release(gameObject);
+                ObjectPoolManager.Instance.ReleaseObject(ObjectPoolManager.BULLET, gameObject);
         }
     }
 
@@ -75,33 +75,19 @@ public class Bullet : MonoBehaviour
         CreateBulletVFX(other);
         
         _rb.velocity = Vector3.zero;
-        // Destroy(gameObject);
         int otherLayer = 1 << other.gameObject.layer;
         if ((bulletHitLayer.value & otherLayer) > 0)
         {
             if (gameObject.activeSelf)
-                ObjectPoolManager.Instance.GetPool(ObjectPoolManager.BULLET)?.Release(gameObject);
+                ObjectPoolManager.Instance.ReleaseObject(ObjectPoolManager.BULLET, gameObject);
         }
     }
 
     private void CreateBulletVFX(Collision other)
     {
-        ObjectPool<GameObject> impactPool;
-        if (!ObjectPoolManager.Instance.HasPool(ObjectPoolManager.VFX))
-        {
-            impactPool = new ObjectPool<GameObject>(() => Instantiate(bulletHitVFX, ObjectPoolManager.PoolParent),
-                actionOnGet: impact => impact.SetActive(true),
-                actionOnRelease: impact => impact.SetActive(false),
-                defaultCapacity: 10);
-            ObjectPoolManager.Instance.RegisterPool(ObjectPoolManager.VFX, impactPool);
-        }
-        else
-        {
-            impactPool = ObjectPoolManager.Instance.GetPool(ObjectPoolManager.VFX);
-        }
         if (other.contacts.Length > 0)
         {
-            GameObject impactGameObject = impactPool.Get();
+            GameObject impactGameObject = ObjectPoolManager.Instance.GetObject(ObjectPoolManager.VFX);
             impactGameObject.transform.position = other.contacts[0].point;
             impactGameObject.transform.rotation = Quaternion.LookRotation(other.contacts[0].normal);
         }

@@ -53,7 +53,7 @@ public class Weapon
     /// <summary>
     /// 开火速率（每秒可以发射多少子弹）
     /// </summary>
-    public float FireRate { get; private set; }
+    public float fireRate;
 
     /// <summary>
     /// 单发射击速率
@@ -163,59 +163,65 @@ public class Weapon
 
     #endregion
 
+    public WeaponDataSo WeaponDataSo { get; private set; }
+    
     /// <summary>
     /// 上次开火时间
     /// </summary>
     private float _lastShootTime;
 
-    public Weapon(WeaponDataSo weaponDataSo)
+    public Weapon(WeaponDataSo weaponDataSoSo)
     {
-        #region Base WeaponData
+        #region Specify
 
-        weaponType = weaponDataSo.weaponType;
-        MagazineCapacity = weaponDataSo.magazineCapacity;
+        weaponType = weaponDataSoSo.weaponType;
+        MagazineCapacity = weaponDataSoSo.magazineCapacity;
+        bulletsInMagazine = weaponDataSoSo.bulletsInMagazine;
+        totalReserveAmmo = weaponDataSoSo.totalReserveAmmo;
 
         #endregion
 
         #region Spread
 
-        BaseSpread = weaponDataSo.baseSpread;
-        MaxSpread = weaponDataSo.maxSpread;
-        SpreadIncreaseRate = weaponDataSo.spreadIncreaseRate;
-        SpreadCooldownTime = weaponDataSo.spreadCooldownTime;
+        BaseSpread = weaponDataSoSo.baseSpread;
+        MaxSpread = weaponDataSoSo.maxSpread;
+        SpreadIncreaseRate = weaponDataSoSo.spreadIncreaseRate;
+        SpreadCooldownTime = weaponDataSoSo.spreadCooldownTime;
 
         #endregion
 
         #region Fire Settings
 
-        SingleFireAvailable = weaponDataSo.singleFireAvailable;
-        BurstFireAvailable = weaponDataSo.burstFireAvailable;
-        AutoFireAvailable = weaponDataSo.autoFireAvailable;
-        FireRate = weaponDataSo.fireRate;
-        SingleFireRate = weaponDataSo.singleFireRate;
-        AutoFireRate = weaponDataSo.autoFireRate;
-        BulletsPerShot = weaponDataSo.bulletsPerShot;
+        SingleFireAvailable = weaponDataSoSo.singleFireAvailable;
+        BurstFireAvailable = weaponDataSoSo.burstFireAvailable;
+        AutoFireAvailable = weaponDataSoSo.autoFireAvailable;
+        fireRate = weaponDataSoSo.fireRate;
+        SingleFireRate = weaponDataSoSo.singleFireRate;
+        AutoFireRate = weaponDataSoSo.autoFireRate;
+        BulletsPerShot = weaponDataSoSo.bulletsPerShot;
 
-        BurstFireRate = weaponDataSo.burstFireRate;
-        BurstFireBulletPerShots = weaponDataSo.burstFireBulletsPerShot;
-        BurstPerBulletFireInterval = weaponDataSo.burstPerBulletFireInterval;
-        BurstFireDelay = weaponDataSo.burstFireDelay;
+        BurstFireRate = weaponDataSoSo.burstFireRate;
+        BurstFireBulletPerShots = weaponDataSoSo.burstFireBulletsPerShot;
+        BurstPerBulletFireInterval = weaponDataSoSo.burstPerBulletFireInterval;
+        BurstFireDelay = weaponDataSoSo.burstFireDelay;
 
         #endregion
 
         #region Speed
 
-        ReloadSpeed = weaponDataSo.reloadSpeed;
-        EquipSpeed = weaponDataSo.equipSpeed;
+        ReloadSpeed = weaponDataSoSo.reloadSpeed;
+        EquipSpeed = weaponDataSoSo.equipSpeed;
 
         #endregion
 
         #region Distance
 
-        ShootDistance = weaponDataSo.shootDistance;
-        CameraDistance = weaponDataSo.cameraDistance;
+        ShootDistance = weaponDataSoSo.shootDistance;
+        CameraDistance = weaponDataSoSo.cameraDistance;
 
         #endregion
+
+        WeaponDataSo = weaponDataSoSo;
     }
 
     /// <summary>
@@ -266,7 +272,7 @@ public class Weapon
 
     private bool ReadyToFire()
     {
-        if (Time.time > _lastShootTime + 1 / FireRate)
+        if (Time.time > _lastShootTime + 1 / fireRate)
         {
             _lastShootTime = Time.time;
             return true;
@@ -304,17 +310,17 @@ public class Weapon
             case FireType.Single:
                 if (BurstFireAvailable)
                     fireType = FireType.Burst;
-                FireRate = BurstFireRate;
+                fireRate = BurstFireRate;
                 break;
             case FireType.Burst:
                 if (AutoFireAvailable)
                     fireType = FireType.Auto;
-                FireRate = AutoFireRate;
+                fireRate = AutoFireRate;
                 break;
             case FireType.Auto:
                 if (SingleFireAvailable)
                     fireType = FireType.Single;
-                FireRate = SingleFireRate;
+                fireRate = SingleFireRate;
                 break;
             default: break;
         }

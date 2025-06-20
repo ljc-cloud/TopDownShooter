@@ -1,11 +1,8 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Pool;
 
-// TODO: 完善对象池
 public class PlayerWeaponController : MonoBehaviour
 {
     // 标准子弹速度 刚体 mass = 1 —— 子弹速度20
@@ -13,23 +10,20 @@ public class PlayerWeaponController : MonoBehaviour
     private const float REFERENCE_BULLET_SPEED = 20f;
 
     private Player _player;
+    [SerializeField] private WeaponDataSo defaultWeaponData;
     [SerializeField] private Weapon currentWeapon;
     private bool _weaponReady = true;
     private bool _isShooting;
 
     [SerializeField] private GameObject bulletPrefab;
-
     [SerializeField] private float bulletSpeed;
-
-    // [SerializeField] private Transform gunPoint;
     [SerializeField] private Transform weaponHolderTransform;
-
-    [Header("Inventory")] [SerializeField] private List<Weapon> weaponSlots;
+    [SerializeField] private GameObject pickupWeaponPrefab;
+    
+    [Header("Inventory")]
+    [SerializeField] private List<Weapon> weaponSlots;
     [SerializeField] private int maxSlots = 2;
-
-    // private ObjectPool<GameObject> _bulletPool;
-
-    // public Transform GunPoint => gunPoint;
+    
     public Weapon CurrentWeapon => currentWeapon;
 
 
@@ -37,26 +31,8 @@ public class PlayerWeaponController : MonoBehaviour
     {
         _player = GetComponent<Player>();
         
-        ObjectPool<GameObject> bulletPool = new ObjectPool<GameObject>(() =>
-            {
-                Transform gunPoint = GetGunPoint();
-                GameObject bulletGameObject = Instantiate(bulletPrefab, gunPoint.position,
-                    Quaternion.LookRotation(gunPoint.forward), ObjectPoolManager.PoolParent);
-                bulletGameObject.SetActive(false);
-                return bulletGameObject;
-            },
-            actionOnGet: bulletGameObject =>
-            {
-                bulletGameObject.SetActive(true);
-            },
-            actionOnRelease: bulletGameObject =>
-            {
-                bulletGameObject.SetActive(false);
-            }, defaultCapacity: 10);
-        
-        ObjectPoolManager.Instance.RegisterPool(ObjectPoolManager.BULLET, bulletPool);
-
         AssignInputEvents();
+        weaponSlots.Add(new Weapon(defaultWeaponData));
         EquipWeapon(0);
     }
 
@@ -106,6 +82,9 @@ public class PlayerWeaponController : MonoBehaviour
             return;
         }
 
+        GameObject droppedWeaponGameObject = ObjectPoolManager.Instance.GetObject(ObjectPoolManager.PICKUP);
+        droppedWeaponGameObject.GetComponent<PickupWeapon>()?.SetupPickupWeapon(currentWeapon, transform.position, transform.rotation);
+
         weaponSlots.Remove(currentWeapon);
         EquipWeapon(weaponSlots.Count - 1);
     }
@@ -114,12 +93,24 @@ public class PlayerWeaponController : MonoBehaviour
 
     public void PickUpWeapon(Weapon newWeapon)
     {
-        if (weaponSlots.Count >= maxSlots)
+        // 1. 如果武器槽中存在相同类型武器，将新武器的弹匣中的子弹添加到武器槽的武器中
+        if (HasWeaponTypeInInventory(newWeapon.weaponType))
         {
-            Debug.Log("can not pick up weapon");
+            GetWeaponByType(newWeapon.weaponType).totalReserveAmmo += newWeapon.bulletsInMagazine;
             return;
         }
-
+        
+        // 2. 如果武器槽已满，且不存在与新武器类型相同的武器，丢弃武器槽中的武器，捡起新武器
+        if (weaponSlots.Count >= maxSlots && currentWeapon.weaponType != newWeapon.weaponType)
+        {
+            int weaponIndex = weaponSlots.IndexOf(currentWeapon);
+            _player.WeaponVisual.SwitchOffWeaponModels();
+            weaponSlots[weaponIndex] = newWeapon;
+            EquipWeapon(weaponIndex);
+            return;
+        }
+        
+        // 3. 武器槽未满，且不存在与新武器类型相同的武器
         weaponSlots.Add(newWeapon);
         _player.WeaponVisual.SwitchOnBackupWeaponModel();
     }
@@ -195,8 +186,7 @@ public class PlayerWeaponController : MonoBehaviour
 
             // if (i >= currentWeapon.bulletsPerShot) SetWeaponReady(true);
         }
-
-        yield return new WaitForSeconds(currentWeapon.BurstFireDelay);
+        // yield return new WaitForSeconds(currentWeapon.BurstFireDelay);
 
         SetWeaponReady(true);
     }
@@ -208,7 +198,7 @@ public class PlayerWeaponController : MonoBehaviour
     {
         currentWeapon.bulletsInMagazine--;
 
-        GameObject bulletGameObject = ObjectPoolManager.Instance.GetPool(ObjectPoolManager.BULLET).Get();
+        GameObject bulletGameObject = ObjectPoolManager.Instance.GetObject(ObjectPoolManager.BULLET);
         Transform gunPoint = GetGunPoint();
         bulletGameObject.transform.position = gunPoint.position;
         bulletGameObject.transform.rotation = Quaternion.LookRotation(gunPoint.forward);

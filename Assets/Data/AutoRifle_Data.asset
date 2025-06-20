@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fb13ee86d834c7e91b376bf8183cec5, type: 3}
+  m_Name: AutoRifle_Data
+  m_EditorClassIdentifier: 
+  weaponType: 2
+  magazineCapacity: 40
+  bulletsInMagazine: 40
+  totalReserveAmmo: 99999
+  reloadSpeed: 2
+  equipSpeed: 2
+  shootDistance: 7
+  cameraDistance: 6
+  singleFireAvailable: 1
+  burstFireAvailable: 1
+  autoFireAvailable: 1
+  fireRate: 10
+  singleFireRate: 5
+  autoFireRate: 10
+  bulletsPerShot: 1
+  burstFireRate: 2
+  burstFireBulletsPerShot: 3
+  burstPerBulletFireInterval: 0.1
+  burstFireDelay: 0.2
+  baseSpread: 0
+  maxSpread: 4
+  spreadIncreaseRate: 0.2
+  spreadCooldownTime: 1

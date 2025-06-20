@@ -166,7 +166,7 @@ public class PlayerWeaponVisual : MonoBehaviour
     /// <summary>
     /// 关闭所有武器模型
     /// </summary>
-    private void SwitchOffWeaponModels()
+    public void SwitchOffWeaponModels()
     {
         for (int i = 0; i < weaponModelArray.Length; i++)
         {
